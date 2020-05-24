@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 
 function Success(props) {
 	const { success } = props;
@@ -13,5 +14,9 @@ function Success(props) {
 		</div>
 	);
 }
+
+Success.propTypes = {
+	success: PropTypes.bool.isRequired
+};
 
 export default Success;

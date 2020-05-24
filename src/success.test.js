@@ -1,13 +1,16 @@
 import * as React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
+import checkPropTypes from 'check-prop-types';
 import Success from './Success';
 
-Enzyme.configure({ adapter: new Adapter() });
+const defaultProps = {
+	success: false
+};
 
 describe('SuccessComponent', () => {
 	function getWrapper(props = {}) {
-		return shallow(<Success {...props} />);
+		const compProps = { ...defaultProps, ...props };
+		return shallow(<Success {...compProps} />);
 	}
 	function findByTestAttr(wrapper, attrValue) {
 		return wrapper.find(`[data-test="${attrValue}"]`);
@@ -17,7 +20,16 @@ describe('SuccessComponent', () => {
 		const successComp = findByTestAttr(getWrapper(), 'success-comp');
 		expect(successComp.length).toBe(1);
 	});
+
 	test('render no success message on success props value false', () => {
+		const checkProps = checkPropTypes(
+			// eslint-disable-next-line react/forbid-foreign-prop-types
+			Success.propTypes,
+			{ success: false },
+			'prop',
+			Success.name
+		);
+		expect(checkProps).toBeUndefined();
 		const successMsg = findByTestAttr(
 			getWrapper({ success: false }),
 			'success-msg'
