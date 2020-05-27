@@ -14,13 +14,13 @@ function GuessWordTable(props) {
 							<th>Guess Word</th>
 							<th>Letter Matched</th>
 						</tr>
+						{guessWords.map(word => (
+							<tr data-test="guess-word" key={word.guessWord}>
+								<td>{word.guessWord}</td>
+								<td>{word.letterMatched}</td>
+							</tr>
+						))}
 					</table>
-					{guessWords.map(word => (
-						<tr data-test="guess-word" key={word.guessWord}>
-							<td>{word.guessWord}</td>
-							<td>{word.letterMatched}</td>
-						</tr>
-					))}
 				</div>
 			)}
 		</div>
